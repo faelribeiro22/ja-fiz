@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Banner from './Banner';
 import Main from './Main';
-import { useLocalStorageState } from 'react-storage-hooks';
 
 const App = () => {
-  const [tasks, setTasks] = useLocalStorageState('ja-fiz', []);
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem('ja-fiz'));
+    if (localData) {
+      setTasks(localData);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('ja-fiz', JSON.stringify(tasks));
+  });
+  const [tasks, setTasks] = useState([]);
   return (
     <div>
       <Header />

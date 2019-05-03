@@ -4,7 +4,6 @@ import nanoid from 'nanoid';
 import { format } from 'date-fns';
 
 const Main = ({ tasks, onNewTaskDone, onRemoveTask }) => {
-  console.log(tasks);
   const byCategory = groupBy(tasks, t => t.category);
   const [obs, setObs] = useState('');
   return (
