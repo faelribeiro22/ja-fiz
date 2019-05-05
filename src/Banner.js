@@ -16,7 +16,7 @@ const Banner = ({ onNewTask }) => {
       >
         <select value={category} onChange={e => setCategory(e.target.value)}>
           <option value="outros">Outros</option>
-          <option value="casa">casa</option>
+          <option value="casa">Casa</option>
           <option value="trabalho">Trabalho</option>
           <option value="esporte">Esporte</option>
         </select>

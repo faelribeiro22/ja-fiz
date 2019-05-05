@@ -2,15 +2,35 @@ import React, { useState } from 'react';
 import groupBy from 'lodash.groupby';
 import nanoid from 'nanoid';
 import { format } from 'date-fns';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  background-color: #fff;
+  color: #333;
+  padding: 1em;
+`;
+
+const EmptyContainer = styled.p`
+  text-allign: center;
+  padding: 16px;
+  font-size: 2rem;
+`;
+
+const Category = styled.div``;
+const CategoryName = styled.h3`
+  font-size: 0.8rem;
+  color: #929db6;
+`;
 
 const Main = ({ tasks, onNewTaskDone, onRemoveTask }) => {
   const byCategory = groupBy(tasks, t => t.category);
   const [obs, setObs] = useState('');
   return (
-    <div>
+    <Container>
+      {tasks.length === 0 && <EmptyContainer>Não tem nada Aqui</EmptyContainer>}
       {Object.keys(byCategory).map(c => (
-        <div key={c}>
-          <h4>{c}</h4>
+        <Category key={c}>
+          <CategoryName>{c}</CategoryName>
           {byCategory[c].map(t => (
             <div key={t.id}>
               <div>
@@ -43,9 +63,9 @@ const Main = ({ tasks, onNewTaskDone, onRemoveTask }) => {
               </table>
             </div>
           ))}
-        </div>
+        </Category>
       ))}
-    </div>
+    </Container>
   );
 };
 
