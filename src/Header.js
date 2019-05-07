@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Header = () => {
-  return <div>Header</div>;
+const Header = ({ onToggleDarkTheme }) => {
+  return (
+    <div>
+      Header <button onClick={onToggleDarkTheme}>tema</button>
+    </div>
+  );
 };
 
 export default Header;

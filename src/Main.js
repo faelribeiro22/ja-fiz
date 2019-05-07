@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  background-color: #fff;
+  background-color: ${p => p.theme.background};
   color: #333;
   padding: 1em;
 `;
@@ -19,7 +19,7 @@ const EmptyContainer = styled.p`
 const Category = styled.div``;
 const CategoryName = styled.h3`
   font-size: 0.8rem;
-  color: #929db6;
+  color: ${p => p.theme.categoryColor};
 `;
 
 const Main = ({ tasks, onNewTaskDone, onRemoveTask }) => {
