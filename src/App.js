@@ -18,24 +18,14 @@ const THEMES = {
 };
 
 const App = () => {
-  useEffect(() => {
-    const localData = JSON.parse(localStorage.getItem('ja-fiz'));
-    if (localData) {
-      setTasks(localData);
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('ja-fiz', JSON.stringify(tasks));
-  });
-  const [tasks, setTasks] = useState([]);
-  const [darkTheme, setDarkTheme] = useState(true);
+  const [tasks, setTasks] = useLocalStorage('ja-fiz', '');
+  const [darkTheme, setDarkTheme] = useLocalStorage('ja-fiz:theme', true);
   return (
     <ThemeProvider theme={THEMES[darkTheme ? 'dark' : 'light']}>
       <div>
         <Header onToggleDarkTheme={() => setDarkTheme(!darkTheme)} />
         <Banner
           onNewTask={t => {
-            console.log('Tá removendo');
             setTasks([...tasks, t]);
           }}
         />
@@ -62,5 +52,31 @@ const App = () => {
     </ThemeProvider>
   );
 };
+
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = value => {
+    try {
+      debugger;
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
 
 export default App;
