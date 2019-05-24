@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Banner from './Banner';
 import Main from './Main';
 import { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
+
+const Application = styled.div`
+  width: 360px;
+  margin: 0 auto;
+  font-family: 'Roboto Mono', sans-serif;
+`;
 
 const THEMES = {
   dark: {
@@ -22,7 +29,7 @@ const App = () => {
   const [darkTheme, setDarkTheme] = useLocalStorage('ja-fiz:theme', true);
   return (
     <ThemeProvider theme={THEMES[darkTheme ? 'dark' : 'light']}>
-      <div>
+      <Application>
         <Header onToggleDarkTheme={() => setDarkTheme(!darkTheme)} />
         <Banner
           onNewTask={t => {
@@ -48,7 +55,7 @@ const App = () => {
             setTasks([...tasks.filter(t => t.id !== taskId)]);
           }}
         />
-      </div>
+      </Application>
     </ThemeProvider>
   );
 };
