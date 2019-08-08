@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './Header';
 import Banner from './Banner';
 import Main from './Main';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
+import useLocalStorage from './utils/stateLocalStorage';
 
 const Application = styled.div`
-  width: 360px;
+  min-width: 320px;
   margin: 0 auto;
   font-family: 'Roboto Mono', sans-serif;
 `;
@@ -30,7 +31,10 @@ const App = () => {
   return (
     <ThemeProvider theme={THEMES[darkTheme ? 'dark' : 'light']}>
       <Application>
-        <Header onToggleDarkTheme={() => setDarkTheme(!darkTheme)} />
+        <Header
+          onToggleDarkTheme={() => setDarkTheme(!darkTheme)}
+          darkTheme={darkTheme}
+        />
         <Banner
           onNewTask={t => {
             setTasks([...tasks, t]);
@@ -59,31 +63,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.log(error);
-      return initialValue;
-    }
-  });
-
-  const setValue = value => {
-    try {
-      debugger;
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return [storedValue, setValue];
-}
 
 export default App;
