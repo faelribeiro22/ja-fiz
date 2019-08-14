@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdBrightness5, MdBrightness3 } from 'react-icons/md';
+import Paper from '@material-ui/core/Paper';
 
 const TitleGroup = styled.div`
   text-align: center;
+  margin-top: 25px;
 `;
 const Title = styled.h1`
   font-size: 18px;
@@ -35,6 +37,7 @@ const LightThemeIcon = styled(MdBrightness5)`
 const HeaderContent = styled.div`
   display: flex;
   justify-content: center;
+  height: 148px;
 `;
 
 const Header = ({ onToggleDarkTheme, darkTheme }) => {

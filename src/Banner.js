@@ -1,9 +1,28 @@
 import React, { useState } from 'react';
 import nanoid from 'nanoid';
+import Select from './shared/Select';
 
 const Banner = ({ onNewTask }) => {
   const [text, setText] = useState('');
   const [category, setCategory] = useState('outros');
+  const options = [
+    {
+      value: 'outros',
+      label: 'Outros',
+    },
+    {
+      value: 'casa',
+      label: 'Casa',
+    },
+    {
+      value: 'trabalho',
+      label: 'Trabalho',
+    },
+    {
+      value: 'esporte',
+      label: 'Esporte',
+    },
+  ];
 
   return (
     <div>
@@ -14,12 +33,11 @@ const Banner = ({ onNewTask }) => {
           setText('');
         }}
       >
-        <select value={category} onChange={e => setCategory(e.target.value)}>
-          <option value="outros">Outros</option>
-          <option value="casa">Casa</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="esporte">Esporte</option>
-        </select>
+        <Select
+          options={options}
+          onSelectOption={setCategory}
+          inputLabel={'Categorias'}
+        />
         <input
           type="text"
           name=""

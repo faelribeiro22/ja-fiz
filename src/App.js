@@ -5,11 +5,13 @@ import Main from './Main';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import useLocalStorage from './utils/stateLocalStorage';
+import Grid from '@material-ui/core/Grid';
 
-const Application = styled.div`
-  min-width: 320px;
-  margin: 0 auto;
+const Application = styled(Grid)`
   font-family: 'Roboto Mono', sans-serif;
+  background-color: ${p => p.theme.background};
+  color: ${p => p.theme.text};
+  height: 100vh;
 `;
 
 const THEMES = {
